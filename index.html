@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Premium ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;padding:25px 15px;
+ min-height:100vh;
+ font-family:Arial,sans-serif;
+ background:linear-gradient(135deg,#ff9aaf,#ffd1dc,#ffe4ec);
+ display:flex;justify-content:center;align-items:center;
+ overflow-x:hidden;
+}
+.card{
+ width:100%;max-width:430px;
+ background:white;padding:25px 20px;
+ border-radius:28px;text-align:center;
+ box-shadow:0 12px 35px #b8326250;
+}
+h1{color:#ff4081}
+input,textarea{
+ width:100%;padding:13px;margin:9px 0;
+ border:1px solid pink;border-radius:12px;
+ font-size:16px;
+}
+textarea{height:90px}
+button{
+ width:100%;padding:14px;margin:8px 0;
+ border:0;border-radius:30px;
+ background:#ff4081;color:white;
+ font-size:16px;font-weight:bold;
+}
+button:active{transform:scale(.97)}
+#result{display:none;margin-top:20px}
+#photo{
+ width:100%;max-height:280px;
+ object-fit:cover;border-radius:18px;
+ display:none;margin:15px 0;
+}
+.heart{font-size:45px;animation:beat 1s infinite}
+@keyframes beat{
+ 50%{transform:scale(1.25)}
+}
+#letter{
+ display:none;background:#fff0f5;
+ padding:18px;border-radius:18px;
+ margin-top:15px;line-height:1.8;
+ white-space:pre-wrap;overflow-wrap:anywhere;
+}
+.float{
+ position:fixed;bottom:-30px;
+ animation:rise 6s linear infinite;
+ pointer-events:none;
+}
+@keyframes rise{
+ to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+
+<div class="heart">❤️</div>
+<h1>Our Love Story</h1>
+<p>ချစ်ရသူအတွက် အမှတ်တရ Website လေး 💕</p>
+
+<input id="name" placeholder="ချစ်သူနာမည်">
+<textarea id="message" placeholder="ချစ်သူအတွက် ချစ်စာရေးပါ..."></textarea>
+
+<p>📸 ချစ်သူဓာတ်ပုံရွေးပါ</p>
+<input id="imageFile" type="file" accept="image/*">
+
+<p>🎵 ကိုယ်ပိုင်သီချင်းထည့်ပါ</p>
+<input id="musicFile" type="file" accept="audio/*">
+
+<button type="button" id="createButton">
+Create My Love Website ❤️
+</button>
+
+<div id="result">
+ <div class="heart">💗</div>
+ <h2>ချစ်ရတဲ့</h2>
+ <h1 id="loverName"></h1>
+ <img id="photo">
+ <button type="button" id="letterButton">
+ Open My Love Letter 💌
+ </button>
+ <div id="letter"></div>
+ <audio id="music" controls loop style="width:100%;margin-top:15px"></audio>
+ <h2>Forever & Always ❤️</h2>
+</div>
+
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+$("createButton").addEventListener("click", function(){
+
+ const name = $("name").value.trim();
+ const message = $("message").value.trim();
+
+ if(!name){
+  alert("ချစ်သူနာမည်ထည့်ပေးပါ ❤️");
+  return;
+ }
+
+ if(!message){
+  alert("ချစ်စာလေးရေးပေးပါ 💌");
+  return;
+ }
+
+ $("loverName").textContent = name;
+ $("letter").textContent = message;
+ $("result").style.display = "block";
+ $("letter").style.display = "none";
+
+ const image = $("imageFile").files[0];
+
+ if(image){
+  $("photo").src = URL.createObjectURL(image);
+  $("photo").style.display = "block";
+ }else{
+  $("photo").style.display = "none";
+ }
+
+ const song = $("musicFile").files[0];
+
+ if(song){
+  $("music").src = URL.createObjectURL(song);
+  $("music").style.display = "block";
+ }else{
+  $("music").removeAttribute("src");
+ }
+
+ $("result").scrollIntoView({behavior:"smooth"});
+});
+
+$("letterButton").addEventListener("click",function(){
+ $("letter").style.display = "block";
+ $("letter").scrollIntoView({behavior:"smooth"});
+});
+
+setInterval(function(){
+ const heart = document.createElement("div");
+ heart.className = "float";
+ heart.textContent = "❤️";
+ heart.style.left = Math.random()*95+"vw";
+ heart.style.fontSize = (18+Math.random()*20)+"px";
+ document.body.appendChild(heart);
+ setTimeout(()=>heart.remove(),6000);
+},700);
+</script>
+
+</body>
+</html>
